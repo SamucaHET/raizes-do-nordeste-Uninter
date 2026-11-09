@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Raízes do Nordeste – Sabores da nossa terra</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Protótipo acadêmico de pedidos multicanal para a rede Raízes do Nordeste.">
+<style>
+:root{--bg:#fbf3e4;--fg:#2b1a10;--card:#fffaf0;--pri:#c2410c;--pf:#fff;--mut:#7a5f4a;--bd:#ecd9b8;--ok:#2f7d32;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c130c;--fg:#f6e9d6;--card:#2a1d13;--pri:#ff8a4c;--pf:#2a1204;--mut:#b89c82;--bd:#4a3626;--ok:#7fd18a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c130c;--fg:#f6e9d6;--card:#2a1d13;--pri:#ff8a4c;--pf:#2a1204;--mut:#b89c82;--bd:#4a3626;--ok:#7fd18a;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select{font:inherit;color:inherit}
+.wrap{margin:0 auto;max-width:480px;padding:12px 14px 96px}
+[data-ch=web] .wrap{max-width:1100px}[data-ch=totem] .wrap{max-width:900px;font-size:22px}
+header{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+h1{font-size:1.3em;margin:0;color:var(--pri);font-family:Georgia,"Times New Roman",serif}h2{font-size:1.1em;margin:14px 0 8px;font-family:Georgia,"Times New Roman",serif}
+.band{height:10px;margin:2px 0 12px;border-radius:5px;background:repeating-linear-gradient(90deg,#c2410c 0 14px,#e9b72c 14px 28px,#2f7d32 28px 42px,#1f5f8b 42px 56px)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.chs button,.chip{border:1px solid var(--bd);background:var(--card);border-radius:99px;padding:6px 12px;cursor:pointer}
+.chs button[aria-pressed=true],.chip.on{background:var(--pri);color:var(--pf);border-color:var(--pri)}
+select{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px;max-width:100%}
+.grid{display:grid;gap:10px;grid-template-columns:1fr}
+@media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+[data-ch=web] .grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+[data-ch=totem] .grid{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px}
+.item{display:flex;flex-direction:column;gap:6px}.em{font-size:2.2em}
+.mut{color:var(--mut);font-size:.88em}.price{font-weight:700}
+.btn{background:var(--pri);color:var(--pf);border:0;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;min-height:44px}
+.btn.s{background:transparent;color:var(--fg);border:1px solid var(--bd)}.btn[disabled]{opacity:.45}
+[data-ch=totem] .btn,[data-ch=totem] .chip{min-height:64px;font-size:1em}
+.q{display:flex;align-items:center;gap:10px}.q button{width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);background:var(--card);cursor:pointer}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav button{flex:1;max-width:120px;border:0;background:none;padding:8px 2px;cursor:pointer;font-size:.72em;color:var(--mut)}
+nav button b{display:block;font-size:1.5em}nav button.on{color:var(--pri);font-weight:700}
+.badge{background:var(--pri);color:var(--pf);border-radius:99px;padding:0 7px;font-size:.8em}
+.steps{display:flex;gap:4px;margin:8px 0}.steps i{flex:1;height:6px;border-radius:3px;background:var(--bd)}.steps i.d{background:var(--ok)}
+input[type=text],input[type=email],input[type=password]{width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--card);margin:4px 0 8px}
+label.c{display:flex;gap:8px;align-items:flex-start;margin:6px 0;font-size:.92em}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9;padding:16px}
+#ov .card{max-width:520px;width:100%;max-height:85vh;overflow:auto;text-align:left}#ov .card .btn{margin-top:8px}.privacy-copy{text-align:left}.privacy-copy{text-align:left}
+.spin{width:36px;height:36px;border:4px solid var(--bd);border-top-color:var(--pri);border-radius:50%;margin:10px auto;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}
+.qr{width:120px;height:120px;margin:8px auto;background:repeating-conic-gradient(var(--fg) 0 25%,var(--card) 0 50%) 0 0/16px 16px;border:6px solid var(--card);outline:1px solid var(--bd)}
+.lgpd{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:10px;font-size:.88em}
+pre{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px;font-size:.8em}
+ul{padding-left:18px;margin:6px 0}.ok{color:var(--ok)}
+</style></head>
+<body><div class="wrap">
+<header><h1>🌵 Raízes do Nordeste</h1><div class="chs row" role="group" aria-label="Canal"></div></header>
+<div class="band" aria-hidden="true"></div><div id="lg"></div>
+<div class="row"><label for="un" class="mut">Unidade:</label><select id="un"></select><span class="mut" id="ui"></span></div>
+<main id="m" aria-live="polite"></main></div>
+<nav id="nv"></nav>
+<div id="ov"><div class="card" id="ovc"></div></div>
+<script>
+const R=v=>"R$ "+v.toFixed(2).replace(".",","),$=s=>document.querySelector(s);
+const U=[{id:"u1",n:"Recife – Boa Viagem",a:"Av. Boa Viagem, 1200",eta:"20–30 min",p:1,off:["m7"]},{id:"u2",n:"Salvador – Barra",a:"Av. Oceânica, 450",eta:"25–35 min",p:1.05,off:[]},{id:"u3",n:"Fortaleza – Meireles",a:"Av. Beira Mar, 2200",eta:"30–40 min",p:.95,off:["m7","m9"]}];
+const M=[["m1","Carne de sol com macaxeira",42.9,"pratos","🥩"],["m2","Baião de dois",34.9,"pratos","🍚"],["m3","Escondidinho de charque",36.9,"pratos","🍲"],["m4","Combo Sertão (prato + suco)",49.9,"combos","🍽️"],["m5","Tapioca de queijo coalho",16.9,"tapiocas e cuscuz","🥞"],["m6","Cuscuz com ovo e manteiga",14.9,"tapiocas e cuscuz","🌽"],["m7","Acarajé",18.9,"petiscos","🧆"],["m8","Suco de cajá",9.9,"bebidas","🥤"],["m9","Bolo de rolo",12.9,"sobremesas","🍰"]].map(x=>({id:x[0],n:x[1],p:x[2],c:x[3],e:x[4]}));
+const PROMO=[{c:"BEMVINDO",t:"10% no primeiro pedido",pc:.1},{c:"FORRO10",t:"R$ 10 off em pedidos acima de R$ 60",v:10,min:60}];
+const REW=[{pts:100,t:"R$ 5 de desconto"},{pts:250,t:"Suco de cajá grátis"},{pts:500,t:"Prato do dia grátis"}];
+const ST=["Recebido","Em preparo","Pronto","Entregue"];
+let S={ch:"app",un:"u1",tab:"menu",cart:{},coupon:null,usePts:false,mode:"retirada",fail:false,db:{user:null,pts:0,orders:[],consent:{}}};
+try{const d=JSON.parse(localStorage.getItem("rn")||"null");if(d && typeof d === "object")S.db={...S.db,...d}}catch(e){localStorage.removeItem("rn")}
+const save=()=>{try{localStorage.setItem("rn",JSON.stringify(S.db))}catch(e){}};
+const un=()=>U.find(u=>u.id===S.un),pr=i=>+(i.p*un().p).toFixed(2);
+const avail=()=>M.filter(i=>!un().off.includes(i.id));
+const sub=()=>Object.entries(S.cart).reduce((s,[id,q])=>s+pr(M.find(i=>i.id===id))*q,0);
+function couponDisc(){
+ const s=sub(),c=S.coupon;
+ if(!c)return 0;
+ if(c.c==="BEMVINDO" && S.db.orders.length>0)return 0;
+ if(c.pc)return +(s*c.pc).toFixed(2);
+ return s>=c.min?Math.min(c.v,s):0;
+}
+function ptsDisc(){
+ if(!S.usePts||!S.db.user)return 0;
+ const saldo=Math.max(0,sub()-couponDisc());
+ return Math.max(0,Math.min(Math.floor(S.db.pts/100)*5,Math.floor(saldo/5)*5));
+}
+function disc(){return Math.min(+(couponDisc()+ptsDisc()).toFixed(2),sub())}
+function couponMessage(){
+ const c=S.coupon;
+ if(!c)return "";
+ if(c.c==="BEMVINDO"&&S.db.orders.length>0)return "Cupom válido apenas no primeiro pedido. Remova-o ou escolha outra promoção.";
+ if(c.min&&sub()<c.min)return `Adicione mais ${R(c.min-sub())} para atingir o mínimo deste cupom.`;
+ return "Cupom aplicado com sucesso.";
+}
+const tot=()=>sub()-disc(),cnt=()=>Object.values(S.cart).reduce((a,b)=>a+b,0);
+const tabs=[["menu","🍽️","Cardápio"],["promo","🏷️","Promoções"],["cart","🛒","Carrinho"],["orders","📦","Pedidos"],["loyalty","⭐","Fidelidade"],["acc","👤","Conta"]];
+function go(t){S.tab=t;draw()}
+function add(id,d){const q=(S.cart[id]||0)+d;if(q<=0)delete S.cart[id];else S.cart[id]=q;draw()}
+function draw(){
+ document.body.dataset.ch=S.ch;
+ $(".chs").innerHTML=[["app","📱 App"],["totem","🖥️ Totem"],["web","🌐 Web"]].map(([k,l])=>`<button aria-pressed="${S.ch==k}" onclick="S.ch='${k}';draw()">${l}</button>`).join("");
+ $("#un").innerHTML=U.map(u=>`<option value="${u.id}" ${u.id==S.un?"selected":""}>${u.n}</option>`).join("");
+ $("#ui").textContent=un().a+" · "+un().eta;
+ $("#nv").innerHTML=tabs.map(([k,i,l])=>`<button class="${S.tab==k?"on":""}" onclick="go('${k}')"><b>${i}</b>${l}${k=="cart"&&cnt()?` <span class="badge">${cnt()}</span>`:""}</button>`).join("");
+ $("#lg").innerHTML=S.db.consent.seen?"":`<div class="lgpd">🔒 Este protótipo utiliza dados demonstrativos no armazenamento local do navegador. Consulte o aviso de privacidade antes de continuar. <button class="btn s" onclick="privacy()">Ver aviso completo</button> <button class="btn" onclick="S.db.consent.seen=1;save();draw()">Entendi</button></div>`;
+ $("#m").innerHTML=V[S.tab]();
+}
+const V={
+menu(){const cats=[...new Set(M.map(i=>i.c))];return cats.map(c=>`<h2>${c[0].toUpperCase()+c.slice(1)}</h2><div class="grid">${M.filter(i=>i.c==c).map(i=>{const off=un().off.includes(i.id),q=S.cart[i.id]||0;return `<div class="card item"><div class="em">${i.e}</div><b>${i.n}</b><span class="price">${R(pr(i))}</span>${off?`<span class="mut">Indisponível nesta unidade</span>`:q?`<div class="q"><button aria-label="Remover" onclick="add('${i.id}',-1)">−</button><b>${q}</b><button aria-label="Adicionar" onclick="add('${i.id}',1)">+</button></div>`:`<button class="btn" onclick="add('${i.id}',1)">Adicionar</button>`}</div>`}).join("")}</div>`).join("")},
+promo(){return `<h2>Promoções e campanhas</h2><div class="grid">${PROMO.map(p=>`<div class="card"><b>${p.c}</b><p>${p.t}</p><button class="btn" onclick="S.coupon=PROMO.find(x=>x.c=='${p.c}');go('cart')">Aplicar no carrinho</button></div>`).join("")}<div class="card"><b>Campanha: São João</b><p class="mut">Pontos em dobro durante junho (regra aplicada no back-end; simulada aqui).</p></div></div>`},
+cart(){if(!cnt())return `<h2>Carrinho</h2><p class="mut">Seu carrinho está vazio.</p>`;
+ const l=Object.entries(S.cart).map(([id,q])=>{const i=M.find(x=>x.id==id);return `<div class="row" style="justify-content:space-between"><span>${q}× ${i.n}</span><span>${R(pr(i)*q)}</span></div>`}).join("");
+ const u=S.db.user,need=!u&&S.ch!="totem";
+ return `<h2>Carrinho · ${un().n}</h2><div class="card">${l}<hr style="border:0;border-top:1px solid var(--bd)">
+ <div class="row"><button class="chip ${S.mode=="retirada"?"on":""}" onclick="S.mode='retirada';draw()">Retirada</button>${S.ch=="totem"?"":`<button class="chip ${S.mode=="entrega"?"on":""}" onclick="S.mode='entrega';draw()">Entrega</button>`}</div>
+ <p class="mut">Cupom: ${S.coupon?`<b>${S.coupon.c}</b> <a href="#" onclick="S.coupon=null;draw();return false">remover</a>`:"nenhum (veja Promoções)"}</p>${S.coupon?`<p class="mut" role="status">${couponMessage()}</p>`:""}
+ ${u?`<label class="c"><input type="checkbox" ${S.usePts?"checked":""} onchange="S.usePts=this.checked;draw()">Usar pontos (${S.db.pts} pts · 100 pts = R$ 5)</label>`:""}
+ <div class="row" style="justify-content:space-between"><span>Subtotal</span><span>${R(sub())}</span></div>
+ <div class="row" style="justify-content:space-between"><span>Descontos</span><span>− ${R(disc())}</span></div>
+ <div class="row price" style="justify-content:space-between"><span>Total</span><span>${R(tot())}</span></div></div>
+ <h2>Pagamento</h2><div class="card"><div class="row"><button class="chip on" id="pm1" onclick="pm=1;pmUp()">Pix</button><button class="chip" id="pm2" onclick="pm=2;pmUp()">Cartão</button></div>
+ <label class="c"><input type="checkbox" ${S.fail?"checked":""} onchange="S.fail=this.checked">Simular pagamento recusado (demo)</label>
+ ${need?`<p class="mut">Crie um cadastro demonstrativo para finalizar e acumular pontos.</p><button class="btn" onclick="go('acc')">Criar cadastro</button>`:`<button class="btn" style="width:100%" onclick="pay()">Pagar ${R(tot())}</button>`}
+ ${S.ch=="totem"&&!u?`<p class="mut">Totem: pedido sem cadastro, sem coleta de dados pessoais.</p>`:""}</div>`},
+orders(){const o=S.db.orders;return `<h2>Acompanhar pedidos</h2>`+(o.length?o.map(x=>`<div class="card" style="margin-bottom:8px"><b>#${x.id}</b> · ${x.un} · ${x.mode}<div class="mut">${x.it}</div><div class="steps">${ST.map((s,i)=>`<i class="${i<=x.st?"d":""}"></i>`).join("")}</div><b class="${x.st==3?"ok":""}">${ST[x.st]}</b> · ${R(x.t)}</div>`).join(""):`<p class="mut">Nenhum pedido ainda.</p>`)},
+loyalty(){const u=S.db.user,p=S.db.pts,tier=p>=500?"Mandacaru":p>=200?"Umbuzeiro":"Semente";if(!u)return `<h2>Fidelidade</h2><p>Cadastre-se para ganhar 1 ponto a cada R$ 1 gasto.</p><button class="btn" onclick="go('acc')">Criar conta</button>`;
+ return `<h2>Fidelidade</h2><div class="card"><div class="em">⭐ ${p} pts</div><b>Nível ${tier}</b><p class="mut">1 ponto por R$ 1. Resgate no carrinho (100 pts = R$ 5).</p></div><h2>Recompensas</h2><div class="grid">${REW.map(r=>`<div class="card"><b>${r.t}</b><p class="mut">${r.pts} pts</p><button class="btn" ${p<r.pts?"disabled":""} onclick="redeem(${r.pts})">Resgatar</button></div>`).join("")}</div>`},
+acc(){const u=S.db.user,c=S.db.consent;if(!u)return `<h2>Cadastro demonstrativo</h2><div class="card"><p class="mut">Este protótipo não possui autenticação real nem servidor. O cadastro abaixo serve apenas para demonstrar a interface e os fluxos locais.</p><label>Nome<input type="text" id="fn" autocomplete="name" maxlength="80" required></label><label>E-mail<input type="email" id="fe" autocomplete="email" maxlength="120" required></label><label>Senha demonstrativa<input type="password" id="fp" autocomplete="new-password" minlength="6" required></label>
+ <label class="c"><input type="checkbox" id="c1">Declaro que li o Aviso de Privacidade (ciência obrigatória).</label>
+ <label class="c"><input type="checkbox" id="c2">Quero receber promoções por e-mail (opcional, revogável a qualquer momento).</label>
+ <button class="btn" onclick="reg()">Criar cadastro demonstrativo</button><p class="mut" id="er" role="alert"></p><p class="mut">O nome, o e-mail, o histórico e as preferências ficam no armazenamento local deste navegador. A senha não é armazenada. <button class="btn s" onclick="privacy()">Ler aviso de privacidade</button></p></div>`;
+ return `<h2>Olá, ${u.n}</h2><div class="card"><b>Seus direitos (LGPD art. 18)</b><p class="mut">Demonstração local: os dados não são enviados a um servidor.</p><button class="btn s" onclick="privacy()">Consultar aviso de privacidade</button><label class="c"><input type="checkbox" ${c.mkt?"checked":""} onchange="S.db.consent.mkt=this.checked;save()">Receber promoções por e-mail</label>
+ <div class="row"><button class="btn s" onclick="mydata()">Ver meus dados</button><button class="btn s" onclick="del()">Excluir minha conta</button><button class="btn s" onclick="out()">Sair</button></div><pre id="dt" hidden></pre></div>`},
+
+};
+let pm=1;function pmUp(){$("#pm1").classList.toggle("on",pm==1);$("#pm2").classList.toggle("on",pm==2)}
+function ov(h){$("#ov").style.display=h?"flex":"none";if(h)$("#ovc").innerHTML=h}
+function pay(){const t=tot(),pix=pm==1;
+ ov(`<b>Enviando pagamento…</b><div class="spin"></div><p class="mut">Simulação local de solicitação de pagamento. Nenhuma API é chamada.</p>`);
+ setTimeout(()=>{ov(pix?`<b>Pague com Pix</b><div class="qr" role="img" aria-label="QR code ilustrativo, sem cobrança real"></div><p class="mut">QR ilustrativo. Nenhuma cobrança real será realizada.</p><p class="mut">Aguardando confirmação…</p><div class="spin"></div>`:`<b>Autorizando cartão…</b><div class="spin"></div>`);
+  setTimeout(()=>S.fail?ov(`<div class="em">❌</div><b>Pagamento recusado</b><p class="mut">Nenhuma cobrança real foi feita. Tente novamente ou escolha outro meio (simulação).</p><button class="btn" onclick="ov(0)">Tentar novamente</button>`):done(t),2200)},1400)}
+function done(t){const id=Math.floor(1000+Math.random()*9000),it=Object.entries(S.cart).map(([i,q])=>q+"× "+M.find(x=>x.id==i).n).join(", ");
+ if(S.usePts&&S.db.user){S.db.pts-=Math.round(ptsDisc()/5)*100;if(S.db.pts<0)S.db.pts=0}
+ const gain=S.db.user?Math.floor(t):0;if(S.db.user)S.db.pts+=gain;
+ S.db.orders.unshift({id,it,t,un:un().n,mode:S.mode,st:0});S.cart={};S.coupon=null;S.usePts=false;save();
+ ov(`<div class="em">✅</div><b>Pagamento aprovado!</b><p>Pedido #${id}${gain?` · +${gain} pontos`:""}</p><button class="btn" onclick="ov(0);go('orders')">Acompanhar pedido</button>`)}
+function redeem(p){const r=REW.find(x=>x.pts==p);if(S.db.pts<p)return;S.db.pts-=p;save();alert("Recompensa resgatada: "+r.t+". Apresente no balcão (mock).");draw()}
+function privacy(){
+ ov(`<div class="privacy-copy"><h2>Aviso de Privacidade - Protótipo</h2>
+ <p>Este projeto é uma demonstração acadêmica. Não representa uma operação comercial ativa e não possui back-end, banco de dados remoto ou gateway real.</p>
+ <h3>Dados tratados na demonstração</h3><p>Nome, e-mail, histórico de pedidos, pontos e preferências de consentimento podem ser salvos no armazenamento local do navegador. A senha digitada no cadastro demonstrativo não é armazenada.</p>
+ <h3>Finalidades</h3><p>Demonstrar cadastro, montagem de pedidos, fidelidade, preferências de marketing e direitos do titular. A opção de marketing é separada e opcional.</p>
+ <h3>Compartilhamento e pagamento</h3><p>Nenhum dado é transmitido a um servidor neste protótipo. Pix e cartão são simulações visuais: não informe dados financeiros reais.</p>
+ <h3>Direitos e controle</h3><p>Na aba Conta, a demonstração permite visualizar dados, desmarcar marketing e excluir os dados do projeto armazenados neste navegador. A exclusão não apaga dados que estejam fora deste navegador.</p>
+ <h3>Versão de produção</h3><p>Uma implementação real deverá identificar o controlador, publicar canal de contato e política completa, definir prazos de retenção, controles de segurança, operadores e bases legais aplicáveis, além de validar o tratamento com o jurídico/encarregado.</p>
+ <button class="btn" onclick="ov(0)">Fechar aviso</button></div>`);
+}
+function reg(){const n=$("#fn").value.trim(),e=$("#fe").value.trim();
+ if(!n||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)||!$("#fp").value||$("#fp").value.length<6)return $("#er").textContent="Informe nome, e-mail válido e senha com pelo menos 6 caracteres.";
+ if(!$("#c1").checked)return $("#er").textContent="Confirme que leu o Aviso de Privacidade para continuar.";
+ S.db.user={n,e};S.db.consent={seen:1,priv:new Date().toISOString(),mkt:$("#c2").checked};save();draw()}
+function out(){S.db.user=null;save();draw()}
+function mydata(){const d=$("#dt");d.hidden=!d.hidden;d.textContent=JSON.stringify(S.db,null,2)}
+function del(){if(confirm("Excluir os dados deste projeto salvos neste navegador?")){S.db={user:null,pts:0,orders:[],consent:{seen:1}};save();draw()}}
+$("#un").onchange=e=>{S.un=e.target.value;S.cart={};draw()};
+setInterval(()=>{let ch=0;S.db.orders.forEach(o=>{if(o.st<3){o.st++;ch=1}});if(ch){save();if(S.tab=="orders")draw()}},6000);
+draw();
+</script></body></html>
