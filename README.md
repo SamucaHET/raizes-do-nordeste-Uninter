@@ -8,11 +8,11 @@ Neste projeto, montei uma demonstração de site para uma rede de lanchonetes de
 
 - `index.html`: aplicação demonstrativa, sem dependências externas.
 - `README.md`: documentação técnica e instruções de execução/publicação.
-- `docs/diagramas/casos_uso.png`: diagrama de casos de uso.
-- `docs/diagramas/jornada_usuario.png`: jornada multicanal do usuário.
-- `docs/diagramas/arquitetura.png`: arquitetura-alvo proposta.
-- `docs/wireframes/wireframe_mobile.png`: telas simplificadas para celular.
-- `docs/wireframes/wireframe_desktop.png`: telas simplificadas para desktop.
+- [`docs/diagramas/casos_uso.png`](docs/diagramas/casos_uso.png): diagrama de casos de uso.
+- [`docs/diagramas/jornada_usuario.png`](docs/diagramas/jornada_usuario.png): jornada multicanal do usuário.
+- [`docs/diagramas/arquitetura.png`](docs/diagramas/arquitetura.png): arquitetura proposta para uma versão futura.
+- [`docs/wireframes/wireframe_mobile.png`](docs/wireframes/wireframe_mobile.png): telas simplificadas para celular.
+- [`docs/wireframes/wireframe_desktop.png`](docs/wireframes/wireframe_desktop.png): telas simplificadas para computador.
 - O relatório acadêmico em PDF é entregue separadamente no AVA, conforme o roteiro da atividade; ele não faz parte da publicação do site.
 
 ## 1. Problema e contexto
@@ -98,7 +98,7 @@ Em um sistema real, a empresa ainda precisaria informar quem é responsável pel
 
 **Objetivo:** validar os fluxos críticos, as mensagens de erro, as variações entre unidades/canais, a responsividade e a clareza da privacidade.
 
-**Ambiente sugerido:** Chrome ou Edge atualizado; desktop em 1366×900; tablet em 768×1024; celular em 375×812; armazenamento local limpo no início dos casos; testar também navegação por teclado e ampliação de 200%.
+**Ambiente utilizado nos testes relatados:** site publicado, navegador Chrome e três dimensões de tela: 375 × 812 (celular), 768 × 1024 (tablet) e 1366 × 900 (computador). Os testes com leitor de tela, navegação completa por teclado e zoom de 200% ainda são melhorias para uma próxima etapa.
 
 | ID | Tipo | Procedimento realizado | Resultado esperado | Resultado |
 |---|---|---|---|---|
@@ -119,34 +119,29 @@ Em um sistema real, a empresa ainda precisaria informar quem é responsável pel
 | T15 | Positivo | Ganhar e usar pontos no carrinho em conta demonstrativa. | Desconto aplicado e saldo atualizado. | Aprovado |
 | T16 | Positivo | Consultar dados, desativar marketing e excluir cadastro local. | Dados exibidos, marketing desativado e conta excluída. | Aprovado |
 
-**Registro:** os 16 casos acima foram executados manualmente pelo aluno em 9 de novembro de 2026, com resultados relatados como aprovados. As capturas selecionadas e o registro dos resultados estão no PDF acadêmico. Na consulta dos dados (T16), a tela usa JSON, funcional para demonstração, mas pouco amigável para um usuário final.
+**Registro:** os 16 casos acima foram testados manualmente em 9 de novembro de 2026, com resultados informados como aprovados. As capturas selecionadas e o registro dos resultados estão no PDF acadêmico. Na consulta dos dados (T16), a tela usa JSON, funcional para demonstração, mas pouco amigável para um usuário final.
 
-## 9. Como executar localmente
+## 9. Como executar no computador
 
-1. Faça download de `index.html` (ou use o HTML disponibilizado separadamente).
-2. Abra o arquivo no Chrome ou Edge.
-3. Para reiniciar a demonstração, limpe os dados de site/armazenamento local do navegador para a página/arquivo, ou use uma janela anônima.
-4. Teste os três canais pelo seletor no topo.
+1. Baixe o repositório em ZIP e extraia os arquivos.
+2. Abra `index.html` no Chrome ou Edge.
+3. Use os botões App, Totem e Web para conferir as telas.
 
-Não é necessário instalar dependências.
+Não é necessário instalar programas adicionais. Para começar os testes com dados novos, use uma janela anônima ou limpe o armazenamento local do site.
 
-## 10. Como publicar no GitHub Pages
+## 10. Onde acessar o projeto
 
-1. Entre em sua conta do GitHub e crie um repositório, por exemplo `raizes-do-nordeste`.
-2. Envie `index.html` e `README.md` para a raiz do repositório. Inclua a pasta `docs/diagramas` se quiser manter os diagramas visíveis no README.
-3. No repositório, abra **Settings → Pages**.
-4. Em **Build and deployment**, selecione **Deploy from a branch**.
-5. Escolha a branch `main` e a pasta `/(root)`, depois clique em **Save**.
-6. Aguarde o workflow de publicação concluir e clique em **Visit site** na área de Pages.
-7. Copie o endereço público gerado, abra em janela anônima e confirme que a tela inicial e o fluxo de pedido carregam.
-8. Substitua os campos de repositório e publicação deste README e atualize o campo correspondente no PDF antes de enviar ao AVA.
+O site já está publicado no GitHub Pages, para que seja possível conhecer e testar as telas sem instalar nada.
 
-Documentação oficial: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
+**Site publicado:** [Abrir Raízes do Nordeste](https://samucahet.github.io/raizes-do-nordeste-Uninter/)
 
-**Repositório:** https://github.com/SamucaHET/raizes-do-nordeste-Uninter  
-**Aplicação publicada:** https://samucahet.github.io/raizes-do-nordeste-Uninter/
+**Repositório:** [Ver os arquivos no GitHub](https://github.com/SamucaHET/raizes-do-nordeste-Uninter)
 
-## 11. Limitações e próximos passos técnicos
+O repositório contém o arquivo `index.html`, este README e os diagramas e wireframes do trabalho. Para abrir o projeto no computador, também é possível baixar os arquivos e abrir `index.html` no navegador.
+
+Não há pagamento real, cadastro com autenticação ou comunicação com servidor. Esses fluxos são demonstrados no próprio navegador, conforme explicado nas seções anteriores.
+
+## 11. Limitações e melhorias futuras
 
 - Implementar API e banco de dados reais para identidade, catálogo, pedidos, pagamento e fidelidade.
 - Integrar gateway de pagamento em sandbox, com tokenização e confirmação autenticada por webhook.
@@ -175,4 +170,4 @@ Esta versão é uma demonstração do que consegui montar com HTML, CSS e JavaSc
 
 ---
 
-**Aviso de entrega:** o relatório acadêmico é entregue em PDF separadamente pelo AVA. O roteiro institucional disponibilizado no AVA prevalece em caso de diferença de formatação.
+**Entrega acadêmica:** o PDF do projeto é enviado separadamente pelo AVA da Uninter.
