@@ -11,6 +11,8 @@ Neste projeto, montei uma demonstração de site para uma rede de lanchonetes de
 - `docs/diagramas/casos_uso.png`: diagrama de casos de uso.
 - `docs/diagramas/jornada_usuario.png`: jornada multicanal do usuário.
 - `docs/diagramas/arquitetura.png`: arquitetura-alvo proposta.
+- `docs/wireframes/wireframe_mobile.png`: telas simplificadas para celular.
+- `docs/wireframes/wireframe_desktop.png`: telas simplificadas para desktop.
 - O relatório acadêmico em PDF é entregue separadamente no AVA, conforme o roteiro da atividade; ele não faz parte da publicação do site.
 
 ## 1. Problema e contexto
@@ -69,10 +71,14 @@ Legenda: **Implementado (mock)** = demonstrável localmente; **Planejado** = dep
 
 - **Cliente App/Web:** consulta catálogo, seleciona unidade, monta carrinho, aplica cupom, usa fidelidade, cadastra-se na demonstração, solicita pagamento e acompanha pedido.
 - **Cliente Totem:** consulta catálogo, monta carrinho e solicita pagamento sem cadastro, somente para retirada.
-- **Gateway externo:** ator de integração previsto; o retorno é apenas simulado nesta versão.
-- **Equipe/administrador:** ator futuro para manutenção do catálogo e das unidades; não existe tela administrativa implementada.
+- **Atendente:** consulta informações do pedido; participação conceitual, sem painel nesta entrega.
+- **Cozinha:** recebe o pedido e atualiza o preparo na arquitetura prevista; não existe painel da cozinha no protótipo.
+- **Gerente / Administrador:** gerencia cardápio e promoções na arquitetura prevista; não existe painel administrativo no protótipo.
+- **Sistema de pagamento externo:** integração futura; o retorno é apenas simulado nesta versão.
 
-Consulte `docs/diagramas/casos_uso.png` e `docs/diagramas/jornada_usuario.png`.
+O diagrama mostra os cinco atores exigidos no roteiro: Cliente, Atendente, Cozinha, Gerente/Administrador e Sistema de Pagamento Externo. Consulte `docs/diagramas/casos_uso.png` e `docs/diagramas/jornada_usuario.png`.
+
+Os wireframes em `docs/wireframes/` mostram o fluxo principal em telas de celular e computador, antes do acabamento visual. A descrição detalhada do caso de uso *Solicitar pagamento* está no relatório PDF.
 
 ## 6. Arquitetura-alvo e integração
 
@@ -94,26 +100,26 @@ Em um sistema real, a empresa ainda precisaria informar quem é responsável pel
 
 **Ambiente sugerido:** Chrome ou Edge atualizado; desktop em 1366×900; tablet em 768×1024; celular em 375×812; armazenamento local limpo no início dos casos; testar também navegação por teclado e ampliação de 200%.
 
-| ID | Tipo | Entradas e procedimento | Saída esperada |
-|---|---|---|---|
-| T01 | Positivo | Abrir a tela inicial no canal App. | Cardápio, seletor de unidade, navegação e três canais visíveis. |
-| T02 | Positivo | Selecionar Salvador – Barra. | Preços recalculados (+5%); itens disponíveis conforme unidade. |
-| T03 | Negativo | Selecionar Fortaleza – Meireles e localizar acarajé e bolo de rolo. | Os dois aparecem como indisponíveis e não podem ser adicionados. |
-| T04 | Positivo | Adicionar carne de sol ao carrinho; aumentar e reduzir quantidade. | Quantidade, subtotal, desconto e total atualizados corretamente. |
-| T05 | Negativo | Adicionar item abaixo de R$ 60 e aplicar FORRO10. | O desconto fica em R$ 0,00 e a tela mostra quanto falta para atingir o valor mínimo. |
-| T06 | Positivo | Adicionar carne de sol (R$ 42,90) e baião (R$ 34,90); aplicar FORRO10. | Subtotal R$ 77,80; desconto R$ 10,00; total R$ 67,80. |
-| T07 | Negativo | No cadastro, informar e-mail inválido e senha com menos de 6 caracteres. | Cadastro bloqueado e mensagem de validação apresentada. |
-| T08 | Negativo | Preencher nome, e-mail e senha válidos sem marcar ciência do aviso. | Cadastro bloqueado com mensagem para confirmar leitura do aviso. |
-| T09 | Positivo | Abrir a aba Conta e selecionar “Ler aviso de privacidade”. | Aviso explica armazenamento local, senha não persistida e pagamentos simulados. |
-| T10 | Positivo | Alternar para Totem, adicionar item e abrir carrinho sem cadastro. | Checkout convidado disponível; somente retirada; aviso de não coleta pessoal. |
-| T11 | Negativo | No carrinho, marcar “Simular pagamento recusado” e pagar. | Mensagem de recusa; nenhuma cobrança real e nenhum pedido aprovado. |
-| T12 | Positivo | No Totem, pagar sem marcar recusa e abrir acompanhamento. | Pedido demonstrativo é criado e aparece na aba Pedidos. |
-| T13 | Positivo | Abrir App/Web nos tamanhos 375×812, 768×1024 e 1366×900. | Conteúdo sem rolagem horizontal indevida; navegação e botões utilizáveis. |
-| T14 | Positivo | Abrir Totem e medir botões de ação principais. | Alvos principais com altura mínima de 64 px. |
-| T15 | Positivo/negativo | Cadastrar usuário de teste, habilitar uso de pontos e combinar com cupom. | Desconto de pontos em múltiplos de R$ 5; pontos debitados sem contar novamente o desconto do cupom. |
-| T16 | Positivo | Em Conta, consultar dados; desmarcar marketing; excluir os dados locais. | Dados exibidos, preferência alterada e dados locais do projeto removidos após confirmação. |
+| ID | Tipo | Procedimento realizado | Resultado esperado | Resultado |
+|---|---|---|---|---|
+| T01 | Positivo | Abrir o endereço público em janela anônima. | A página e o cardápio aparecem. | Aprovado |
+| T02 | Positivo | Alternar entre App, Totem e Web. | Os três canais exibem suas interfaces. | Aprovado |
+| T03 | Positivo | Comparar preços da carne de sol em Recife, Salvador e Fortaleza. | O preço muda conforme a unidade. | Aprovado |
+| T04 | Negativo/positivo | Verificar Acarajé em Recife e em Salvador. | Indisponível em Recife, disponível em Salvador. | Aprovado |
+| T05 | Negativo | Aplicar FORRO10 em 1 Baião de dois (R$ 34,90). | Desconto de R$ 0,00; total R$ 34,90. | Aprovado |
+| T06 | Positivo | Aplicar FORRO10 em 2 Baiões de dois (R$ 69,80). | Desconto de R$ 10,00; total R$ 59,80. | Aprovado |
+| T07 | Negativo | Informar e-mail inválido e senha de 3 caracteres; depois e-mail válido com senha curta. | Cadastro bloqueado em ambas as tentativas. | Aprovado |
+| T08 | Negativo | Usar dados válidos sem marcar a ciência do aviso. | Cadastro bloqueado com orientação sobre o aviso. | Aprovado |
+| T09 | Positivo | Abrir, fechar e reabrir o aviso de privacidade em Conta. | O aviso segue disponível para consulta. | Aprovado |
+| T10 | Positivo | Fazer pedido simulado no Totem sem cadastro. | Pagamento permitido somente para retirada. | Aprovado |
+| T11 | Negativo | Marcar pagamento recusado e tentar concluir. | Mensagem de recusa; sem novo pedido aprovado. | Aprovado |
+| T12 | Positivo | Simular pagamento aprovado e consultar Pedidos. | Número de pedido criado e exibido no histórico. | Aprovado |
+| T13 | Positivo | Conferir layouts em 375×812, 768×1024 e 1366×900. | Layout utilizável, sem cortes importantes. | Aprovado |
+| T14 | Positivo | Testar botões principais e controles do Totem. | Botões utilizáveis e legíveis. | Aprovado |
+| T15 | Positivo | Ganhar e usar pontos no carrinho em conta demonstrativa. | Desconto aplicado e saldo atualizado. | Aprovado |
+| T16 | Positivo | Consultar dados, desativar marketing e excluir cadastro local. | Dados exibidos, marketing desativado e conta excluída. | Aprovado |
 
-**Registro dos testes:** quando fizer os testes, anote se cada um passou ou falhou, a data, o navegador usado e, quando possível, guarde uma captura da tela. A tabela mostra o que deve acontecer, mas não significa que todos os casos já foram testados manualmente.
+**Registro:** os 16 casos acima foram executados manualmente pelo aluno em 9 de novembro de 2026, com resultados relatados como aprovados. As capturas selecionadas e o registro dos resultados estão no PDF acadêmico. Na consulta dos dados (T16), a tela usa JSON, funcional para demonstração, mas pouco amigável para um usuário final.
 
 ## 9. Como executar localmente
 
@@ -137,8 +143,8 @@ Não é necessário instalar dependências.
 
 Documentação oficial: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
 
-**Repositório:** `[PREENCHER URL DO GITHUB]`  
-**Aplicação publicada:** `[PREENCHER URL DO GITHUB PAGES]`
+**Repositório:** https://github.com/SamucaHET/raizes-do-nordeste-Uninter  
+**Aplicação publicada:** https://samucahet.github.io/raizes-do-nordeste-Uninter/
 
 ## 11. Limitações e próximos passos técnicos
 
@@ -169,4 +175,4 @@ Esta versão é uma demonstração do que consegui montar com HTML, CSS e JavaSc
 
 ---
 
-**Aviso de entrega:** antes de enviar, substitua os campos de RU, nome, instituição, polo/cidade e links. O roteiro institucional disponibilizado no AVA prevalece em caso de diferença de formatação em relação a esta estrutura de referência.
+**Aviso de entrega:** o relatório acadêmico é entregue em PDF separadamente pelo AVA. O roteiro institucional disponibilizado no AVA prevalece em caso de diferença de formatação.
